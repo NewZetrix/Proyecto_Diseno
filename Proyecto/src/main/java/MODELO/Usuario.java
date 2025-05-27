@@ -8,7 +8,7 @@ package MODELO;
  *
  * @author User
  */
-public class Usuario {
+public class Usuario implements Cloneable{
     private String nombre;
     private String tipoUsuario;
 
@@ -23,5 +23,22 @@ public class Usuario {
 
     public String getTipoUsuario() {
         return tipoUsuario;
+    }
+
+    @Override
+    public Usuario clone() {
+        try {
+            return (Usuario) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Error al clonar usuario", e);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombre='" + nombre + '\'' +
+                ", tipoUsuario='" + tipoUsuario + '\'' +
+                '}';
     }
 }
