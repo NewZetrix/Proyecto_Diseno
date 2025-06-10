@@ -17,6 +17,7 @@ import MODELO.IUsuario;
 import MODELO.RecursoEducativoDAO;
 import MODELO.TallerDAO;
 import MODELO.UsuarioDAO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,7 +26,10 @@ import MODELO.UsuarioDAO;
 public class AppPrincipal {
     public static void main(String[] args) {
         ConexionBD conexion = new ConexionBD();
-
+        if (conexion.establecerConexion() != null) {
+        JOptionPane.showMessageDialog(null, "✅ Conexión inicial exitosa a la base de datos.");
+        }
+        
         // DAO y controladores (si luego los necesitas)
         IRecursoEducativo recursoDAO = new RecursoEducativoDAO(conexion);
         ControladorRecursoEducativo controladorRecursos = new ControladorRecursoEducativo(recursoDAO);
@@ -40,6 +44,6 @@ public class AppPrincipal {
         ControladorUsuario controladorUsuario = new ControladorUsuario(usuarioDAO);
 
         // Lanzar interfaz gráfica
-        javax.swing.SwingUtilities.invokeLater(() -> new RegistroUsuarioFrame().setVisible(true));
+        javax.swing.SwingUtilities.invokeLater(() -> {new RegistroUsuarioFrame().setVisible(true);});
     }
 }

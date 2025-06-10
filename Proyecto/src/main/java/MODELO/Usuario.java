@@ -8,15 +8,22 @@ package MODELO;
  *
  * @author User
  */
-public class Usuario implements Cloneable{
+public class Usuario implements Cloneable {
     private String nombre;
     private String tipoUsuario;
+    private String telefono;
+    private String direccion;
+    private String correo;
 
-    public Usuario(String nombre, String tipoUsuario) {
+    public Usuario(String nombre, String tipoUsuario, String telefono, String direccion, String correo) {
         this.nombre = nombre;
         this.tipoUsuario = tipoUsuario;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.correo = correo;
     }
 
+    // Getters
     public String getNombre() {
         return nombre;
     }
@@ -25,6 +32,19 @@ public class Usuario implements Cloneable{
         return tipoUsuario;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    // Método Prototype (clonación)
     @Override
     public Usuario clone() {
         try {
@@ -39,6 +59,9 @@ public class Usuario implements Cloneable{
         return "Usuario{" +
                 "nombre='" + nombre + '\'' +
                 ", tipoUsuario='" + tipoUsuario + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", correo='" + correo + '\'' +
                 '}';
     }
 }

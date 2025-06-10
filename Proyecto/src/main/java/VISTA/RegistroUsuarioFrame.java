@@ -9,9 +9,12 @@ import CONTROLADOR.ControladorUsuario;
 import MODELO.IUsuario;
 import MODELO.UsuarioDAO;
 import java.awt.BorderLayout;
+import static java.awt.Color.*;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
+//import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,18 +28,19 @@ import javax.swing.JTextField;
  * @author User
  */
 public class RegistroUsuarioFrame extends JFrame {
-    private JPanel panelPrincipal, panelCampos;
-    private JButton btnM1, btnM2, btnM3, btnM4;
-    private JButton btnPaso1, btnPaso2, btnPaso3;
+    //private JPanel panelPrincipal, panelCampos;
+    //private JButton btnM1, btnM2, btnM3, btnM4;
+    private JTextField txtNombre, txtTipo, txtTelefono, txtDireccion, txtCorreo;
+    //private JButton btnPaso1, btnPaso2, btnPaso3;
     private JButton btnAceptar, btnCancelar, btnRegresar;
-    private JLabel lblPasoActual;
-    private JTextField[] camposTexto;
-    private int pasoActual = 1;
+    //private JLabel lblPasoActual;
+    //private JTextField[] camposTexto;
+    //private int pasoActual = 1;
 
     private ControladorUsuario controladorUsuario;
 
     public RegistroUsuarioFrame() {
-        // Inyección de dependencias
+        // Controlador
         IUsuario usuarioDAO = new UsuarioDAO(new ConexionBD());
         controladorUsuario = new ControladorUsuario(usuarioDAO);
 
@@ -47,159 +51,115 @@ public class RegistroUsuarioFrame extends JFrame {
         setLayout(new BorderLayout());
 
         inicializarComponentes();
-        actualizarPaso();
     }
 
     private void inicializarComponentes() {
-        panelPrincipal = new JPanel(new BorderLayout());
-        add(panelPrincipal);
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-        // Navegación de módulos
-        JPanel panelNavegacion = new JPanel(new GridLayout(1, 4));
-        btnM1 = new JButton("M1");
-        btnM2 = new JButton("M2");
-        btnM3 = new JButton("M3");
-        btnM4 = new JButton("M4");
+        // Panel navegación módulos (superior)
+        JPanel panelModulos = new JPanel(new GridLayout(1, 4));
+        String[] modulos = {"M1", "M2", "M3", "M4"};
+        for (String mod : modulos) {
+            JButton btn = new JButton(mod);
+            btn.setEnabled(mod.equals("M4")); // Solo M4 habilitado
+            panelModulos.add(btn);
+        }
+        panelPrincipal.add(panelModulos, BorderLayout.NORTH);
 
-        ActionListener modNoDisponible = e -> JOptionPane.showMessageDialog(this, "Este módulo no se encuentra disponible");
-        btnM1.addActionListener(modNoDisponible);
-        btnM2.addActionListener(modNoDisponible);
-        btnM3.addActionListener(modNoDisponible);
-        btnM4.addActionListener(e -> dispose()); // salir
-
-        panelNavegacion.add(btnM1);
-        panelNavegacion.add(btnM2);
-        panelNavegacion.add(btnM3);
-        panelNavegacion.add(btnM4);
-
-        panelPrincipal.add(panelNavegacion, BorderLayout.NORTH);
-
-        // Panel de pasos
+        // Panel pasos
         JPanel panelPasos = new JPanel(new FlowLayout());
-        btnPaso1 = new JButton("1...");
-        btnPaso2 = new JButton("2...");
-        btnPaso3 = new JButton("3...");
-        btnPaso1.setEnabled(false);
-        btnPaso2.setEnabled(false);
-        btnPaso3.setEnabled(false);
-
+        JButton btnPaso1 = new JButton("1...");
+        JButton btnPaso2 = new JButton("2...");
+        JButton btnPaso3 = new JButton("3...");
+        btnPaso1.setBackground(cyan);
+        btnPaso2.setBackground(cyan);
+        btnPaso3.setBackground(cyan);
         panelPasos.add(btnPaso1);
         panelPasos.add(btnPaso2);
         panelPasos.add(btnPaso3);
         panelPrincipal.add(panelPasos, BorderLayout.CENTER);
 
-        // Campos de entrada
-        panelCampos = new JPanel();
+        // Panel de campos
+        JPanel panelCampos = new JPanel();
         panelCampos.setLayout(new BoxLayout(panelCampos, BoxLayout.Y_AXIS));
-        lblPasoActual = new JLabel("Paso 1...");
-        panelCampos.add(lblPasoActual);
 
-        String[] etiquetas = {"Nombre", "Tipo de usuario"};
-        camposTexto = new JTextField[etiquetas.length];
-        for (int i = 0; i < etiquetas.length; i++) {
-            JPanel fila = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            JLabel lbl = new JLabel(etiquetas[i] + ":");
-            camposTexto[i] = new JTextField(20);
-            fila.add(lbl);
-            fila.add(camposTexto[i]);
-            panelCampos.add(fila);
-        }
+        JLabel lblTitulo = new JLabel("1. Registro de Usuario");
+        lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panelCampos.add(lblTitulo);
 
-        panelPrincipal.add(panelCampos, BorderLayout.SOUTH);
+        txtNombre = agregarCampo(panelCampos, "Nombre:");
+        txtTipo = agregarCampo(panelCampos, "Tipo de Usuario:");
+        txtTelefono = agregarCampo(panelCampos, "Telefono:");
+        txtDireccion = agregarCampo(panelCampos, "Direccion:");
+        txtCorreo = agregarCampo(panelCampos, "Correo:");
 
-        // Botones de acción
+        // Botones Aceptar / Cancelar
         JPanel panelBotones = new JPanel(new FlowLayout());
-        btnAceptar = new JButton("Aceptar");
-        btnCancelar = new JButton("Cancelar");
-        btnRegresar = new JButton("Regresar");
 
-        btnAceptar.addActionListener(e -> validarYConfirmar());
+        btnAceptar = new JButton("Aceptar");
+        btnAceptar.setBackground(GREEN);
+        btnAceptar.addActionListener(e -> registrarUsuario());
+
+        btnCancelar = new JButton("Cancelar");
+        btnCancelar.setBackground(RED);
         btnCancelar.addActionListener(e -> limpiarCampos());
-        btnRegresar.addActionListener(e -> regresarPaso());
 
         panelBotones.add(btnAceptar);
         panelBotones.add(btnCancelar);
-        panelBotones.add(btnRegresar);
         panelCampos.add(panelBotones);
-    }
 
-    private void actualizarPaso() {
-        lblPasoActual.setText("Paso " + pasoActual + "...");
-        btnPaso1.setEnabled(pasoActual == 1);
-        btnPaso2.setEnabled(pasoActual == 2);
-        btnPaso3.setEnabled(pasoActual == 3);
-        limpiarCampos();
-    }
-
-    private void mostrarConfirmacion() {
-        String nombre = camposTexto[0].getText().trim();
-        String tipo = camposTexto[1].getText().trim();
-
-        String mensaje = "<html><h3>Confirme sus datos:</h3>"
-                       + "<ul>"
-                       + "<li><b>Nombre:</b> " + nombre + "</li>"
-                       + "<li><b>Tipo:</b> " + tipo + "</li>"
-                       + "</ul></html>";
-
-        JOptionPane.showMessageDialog(this, mensaje, "Confirmación de Usuario", JOptionPane.INFORMATION_MESSAGE);
+        panelPrincipal.add(panelCampos, BorderLayout.SOUTH);
+        add(panelPrincipal);
     }
     
-    private void mostrarFinalizacion() {
-        int opcion = JOptionPane.showOptionDialog(
-            this,
-            "🎉 Usuario registrado con éxito.\n¿Desea registrar otro?",
-            "Registro completado",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            null,
-            new Object[]{"Sí, otro", "No, salir"},
-            "Sí, otro"
-        );
+    private void registrarUsuario() {
+        String nombre = txtNombre.getText().trim();
+        String tipo = txtTipo.getText().trim();
+        String telefono = txtTelefono.getText().trim();
+        String direccion = txtDireccion.getText().trim();
+        String correo = txtCorreo.getText().trim();
 
-        if (opcion == JOptionPane.YES_OPTION) {
-            pasoActual = 1;
-            actualizarPaso();
-        } else {
-            dispose(); // Cierra la ventana
-        }
-    }
-    
-    private void validarYConfirmar() {
-        String nombre = camposTexto[0].getText().trim();
-        String tipo = camposTexto[1].getText().trim();
-
-        if (nombre.isEmpty() || tipo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe completar ambos campos.");
+        if (nombre.isEmpty() || tipo.isEmpty() || telefono.isEmpty() || direccion.isEmpty() || correo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "❌ Debe completar todos los campos.", "Validación", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        if (pasoActual == 1) {
-            mostrarConfirmacion();
-            pasoActual = 2;
-            actualizarPaso();
-        } else if (pasoActual == 2) {
-            try {
-                controladorUsuario.registrarNuevoUsuario(nombre, tipo);
-                pasoActual = 3;
-                actualizarPaso();
-                mostrarFinalizacion();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "❌ Error al registrar: " + ex.getMessage());
-            }
+        try {
+            int usuarioId = controladorUsuario.registrarYObtenerId(nombre, tipo, telefono, direccion, correo);
+            JOptionPane.showMessageDialog(this, "✅ Usuario registrado con ID: " + usuarioId);
+
+            // Abrir FormularioPaso2Frame y pasar el usuarioId
+            new FormularioPaso2Frame(usuarioId).setVisible(true);
+            dispose();
+            limpiarCampos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "❌ Error al registrar usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    private JTextField agregarCampo(JPanel panel, String etiqueta) {
+        JPanel fila = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel lbl = new JLabel(etiqueta);
+        lbl.setPreferredSize(new Dimension(120, 20));
+        JTextField campo = new JTextField(25);
+        fila.add(lbl);
+        fila.add(campo);
+        panel.add(fila);
+        return campo;
+    }
 
-    private void regresarPaso() {
+    /*private void regresarPaso() {
         if (pasoActual > 1) {
             pasoActual--;
             actualizarPaso();
         }
-    }
-
+    }*/
     private void limpiarCampos() {
-        for (JTextField campo : camposTexto) {
-            campo.setText("");
-        }
+        txtNombre.setText("");
+        txtTipo.setText("");
+        txtTelefono.setText("");
+        txtDireccion.setText("");
+        txtCorreo.setText("");
     }
 
     

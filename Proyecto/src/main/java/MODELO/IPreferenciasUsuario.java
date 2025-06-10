@@ -8,8 +8,6 @@ package MODELO;
  *
  * @author User
  */
-public interface IUsuario {
-    void registrarUsuario(Usuario usuario);
-
-    public int registrarYDevolverId(Usuario usuario);
+public interface IPreferenciasUsuario {
+    void registrarPreferencias(PreferenciasUsuario preferencias);
 }

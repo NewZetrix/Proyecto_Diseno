@@ -18,8 +18,13 @@ public class ControladorUsuario {
         this.servicioUsuario = servicioUsuario;
     }
 
-    public void registrarNuevoUsuario(String nombre, String tipo) {
-        Usuario usuario = new Usuario(nombre, tipo);
+    public void registrarNuevoUsuario(String nombre, String tipo, String telefono, String direccion, String correo) {
+        Usuario usuario = new Usuario(nombre, tipo, telefono, direccion, correo);
         servicioUsuario.registrarUsuario(usuario);
+    }
+    
+    public int registrarYObtenerId(String nombre, String tipo, String telefono, String direccion, String correo) {
+        Usuario usuario = new Usuario(nombre, tipo, telefono, direccion, correo);
+        return servicioUsuario.registrarYDevolverId(usuario);
     }
 }
