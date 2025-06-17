@@ -1,29 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package VISTA;
 
 import CONEXIONSQL.ConexionBD;
 import CONTROLADOR.ControladorDatosComplementarios;
+import MODELO.DatosComplementarios;
 import MODELO.DatosComplementariosDAO;
+import MODELO.DatosComplementariosPublisher;
 import MODELO.IDatosComplementarios;
+import MODELO.PerfilEducativoObserver;
+import MODELO.SeguimientoObserver;
 
 import javax.swing.*;
 import java.awt.*;
 
-/**
- *
- * @author User
- */
-public class FormularioPaso2Frame extends JFrame {
+public class DatosComplementsFrame extends JFrame {
     private final int usuarioId;
     private JTextField txtNivel, txtOcupacion, txtEdad, txtInteres;
     private JComboBox<String> cbGenero;
     private JButton btnAceptar, btnCancelar;
     private ControladorDatosComplementarios controlador;
 
-    public FormularioPaso2Frame(int usuarioId) {
+    public DatosComplementsFrame(int usuarioId) {
         this.usuarioId = usuarioId;
 
         IDatosComplementarios dao = new DatosComplementariosDAO(new ConexionBD());
@@ -117,21 +113,30 @@ public class FormularioPaso2Frame extends JFrame {
             String interes = txtInteres.getText().trim();
 
             if (nivel.isEmpty() || ocupacion.isEmpty() || interes.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "❌ Complete todos los campos.");
+                JOptionPane.showMessageDialog(this, "Complete todos los campos.");
                 return;
             }
 
             controlador.registrar(usuarioId, nivel, ocupacion, edad, genero, interes);
-            JOptionPane.showMessageDialog(this, "✅ Datos complementarios registrados con éxito.");
+            JOptionPane.showMessageDialog(this, "Datos complementarios registrados con éxito.");
 
             // Ir al formulario paso 3
-            new FormularioPaso3Frame(usuarioId).setVisible(true);
+            new PreferenciaUsuarioFrame(usuarioId).setVisible(true);
             dispose();
 
+            // Crear publisher y observers
+            DatosComplementariosPublisher publisher = new DatosComplementariosPublisher();
+            publisher.agregarObserver(new PerfilEducativoObserver());
+            publisher.agregarObserver(new SeguimientoObserver());
+
+            // Notificar observers con los datos ingresados
+            DatosComplementarios datos = new DatosComplementarios(usuarioId, nivel, ocupacion, edad, genero, interes);
+            publisher.notificar(datos);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "❌ Edad debe ser un número válido.");
+            JOptionPane.showMessageDialog(this, "Edad debe ser un número válido.");
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "❌ Error: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
         }
+       
     }
 }

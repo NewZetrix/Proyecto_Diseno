@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package VISTA;
 
 import CONEXIONSQL.ConexionBD;
@@ -19,15 +15,11 @@ import MODELO.TallerDAO;
 import MODELO.UsuarioDAO;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author User
- */
 public class AppPrincipal {
     public static void main(String[] args) {
         ConexionBD conexion = new ConexionBD();
         if (conexion.establecerConexion() != null) {
-        JOptionPane.showMessageDialog(null, "✅ Conexión inicial exitosa a la base de datos.");
+        JOptionPane.showMessageDialog(null, "Conexión inicial exitosa a la base de datos.");
         }
         
         // DAO y controladores (si luego los necesitas)

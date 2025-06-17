@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package CONTROLADOR;
 
 import MODELO.IRecursoEducativo;
 import MODELO.RecursoEducativo;
 import java.util.List;
 
-/**
- *
- * @author User
- */
 public class ControladorRecursoEducativo {
     private final IRecursoEducativo servicio;
 

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package VISTA;
 
 import CONEXIONSQL.ConexionBD;
@@ -16,11 +12,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.*;
 
-/**
- *
- * @author User
- */
-public class FormularioPaso3Frame extends JFrame{
+public class PreferenciaUsuarioFrame extends JFrame{
     private final int usuarioId;
     private JComboBox<String> cbHorario, cbMedioContacto, cbRecibeMateriales;
     private JTextArea txtComentario;
@@ -28,7 +20,7 @@ public class FormularioPaso3Frame extends JFrame{
 
     private ControladorPreferenciasUsuario controlador;
 
-    public FormularioPaso3Frame(int usuarioId) {
+    public PreferenciaUsuarioFrame(int usuarioId) {
         this.usuarioId = usuarioId;
 
         IPreferenciasUsuario dao = new PreferenciasUsuarioDAO(new ConexionBD());
@@ -123,10 +115,10 @@ public class FormularioPaso3Frame extends JFrame{
 
         try {
             controlador.registrar(usuarioId, horario, medio, recibe, comentario);
-            JOptionPane.showMessageDialog(this, "🎉 Registro completado con éxito.\n¡Gracias por participar!");
+            JOptionPane.showMessageDialog(this, "Registro completado con éxito.\n¡Gracias por participar!");
             dispose();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "❌ Error al guardar preferencias: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al guardar preferencias: " + e.getMessage());
         }
     }
 }

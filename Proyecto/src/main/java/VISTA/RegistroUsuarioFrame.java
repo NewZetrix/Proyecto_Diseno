@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package VISTA;
 
 import CONEXIONSQL.ConexionBD;
@@ -23,10 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author User
- */
 public class RegistroUsuarioFrame extends JFrame {
     //private JPanel panelPrincipal, panelCampos;
     //private JButton btnM1, btnM2, btnM3, btnM4;
@@ -120,20 +112,20 @@ public class RegistroUsuarioFrame extends JFrame {
         String correo = txtCorreo.getText().trim();
 
         if (nombre.isEmpty() || tipo.isEmpty() || telefono.isEmpty() || direccion.isEmpty() || correo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "❌ Debe completar todos los campos.", "Validación", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe completar todos los campos.", "Validación", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
             int usuarioId = controladorUsuario.registrarYObtenerId(nombre, tipo, telefono, direccion, correo);
-            JOptionPane.showMessageDialog(this, "✅ Usuario registrado con ID: " + usuarioId);
+            JOptionPane.showMessageDialog(this, "Usuario registrado con ID: " + usuarioId);
 
             // Abrir FormularioPaso2Frame y pasar el usuarioId
-            new FormularioPaso2Frame(usuarioId).setVisible(true);
+            new DatosComplementsFrame(usuarioId).setVisible(true);
             dispose();
             limpiarCampos();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "❌ Error al registrar usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al registrar usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     

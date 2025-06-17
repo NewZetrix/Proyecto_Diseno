@@ -1,15 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package CONEXIONSQL;
 
 import java.sql.*;
 import javax.swing.JOptionPane;
-/**
- *
- * @author User
- */
+
 public class ConexionBD {
     Connection conectar=null;
     
