@@ -1,5 +1,5 @@
 package MODELO;
 
-public interface DatosObserver {
+public interface IDatosObserver {
     void actualizar(DatosComplementarios datos);
 }
