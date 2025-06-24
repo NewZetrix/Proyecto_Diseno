@@ -1,11 +1,7 @@
 package MODELO;
 
 import CONEXIONSQL.ConexionBD;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class UsuarioDAO implements IUsuario{
     private final ConexionBD conexion;
@@ -59,6 +55,26 @@ public class UsuarioDAO implements IUsuario{
             throw new RuntimeException("Error al registrar y obtener ID del usuario: " + e.getMessage(), e);
         }
         return idGenerado;
+    }
+
+    @Override
+    public String obtenerCorreoPorId(int usuarioId) {
+        String sql = "SELECT Correo FROM Usuarios WHERE Id = ?";
+        try (Connection con = conexion.establecerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, usuarioId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("Correo");
+            } else {
+                throw new RuntimeException("No se encontró correo para el usuario con ID: " + usuarioId);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener correo del usuario: " + e.getMessage(), e);
+        }
     }
 
 }

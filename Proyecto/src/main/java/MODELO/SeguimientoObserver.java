@@ -2,7 +2,7 @@ package MODELO;
 
 import javax.swing.JOptionPane;
 
-public class SeguimientoObserver implements DatosObserver{
+public class SeguimientoObserver implements IDatosObserver{
 
     @Override
     public void actualizar(DatosComplementarios datos) {

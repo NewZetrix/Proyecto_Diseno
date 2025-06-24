@@ -2,8 +2,13 @@ package VISTA;
 
 import CONEXIONSQL.ConexionBD;
 import CONTROLADOR.ControladorPreferenciasUsuario;
+import MODELO.EnvioMaterialProxy;
+import MODELO.EnvioMaterialServiceReal;
+import MODELO.IEnvioMaterialService;
 import MODELO.IPreferenciasUsuario;
+import MODELO.IUsuario;
 import MODELO.PreferenciasUsuarioDAO;
+import MODELO.UsuarioDAO;
 import java.awt.BorderLayout;
 import static java.awt.Color.*;
 import java.awt.Component;
@@ -113,6 +118,22 @@ public class PreferenciaUsuarioFrame extends JFrame{
         String recibe = (String) cbRecibeMateriales.getSelectedItem();
         String comentario = txtComentario.getText().trim();
 
+        String deseaRecibir = cbRecibeMateriales.getSelectedItem().toString();
+
+        boolean aceptaMaterial = deseaRecibir.equalsIgnoreCase("Sí");
+        
+        // Obtener el correo desde la base de datos
+        IUsuario usuarioDAO = new UsuarioDAO(new ConexionBD());
+        String correo = usuarioDAO.obtenerCorreoPorId(usuarioId);
+        
+        // Aplicar patrón Proxy
+        IEnvioMaterialService servicio = new EnvioMaterialProxy(
+            new EnvioMaterialServiceReal(),
+            aceptaMaterial
+        );
+
+        // Simula envío
+        servicio.enviarMaterial(correo, comentario);
         try {
             controlador.registrar(usuarioId, horario, medio, recibe, comentario);
             JOptionPane.showMessageDialog(this, "Registro completado con éxito.\n¡Gracias por participar!");

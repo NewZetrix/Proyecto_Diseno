@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatosComplementariosPublisher {
-    private final List<DatosObserver> observadores = new ArrayList<>();
+    private final List<IDatosObserver> observadores = new ArrayList<>();
 
-    public void agregarObserver(DatosObserver observer) {
+    public void agregarObserver(IDatosObserver observer) {
         observadores.add(observer);
     }
 
     public void notificar(DatosComplementarios datos) {
-        for (DatosObserver obs : observadores) {
+        for (IDatosObserver obs : observadores) {
             obs.actualizar(datos);
         }
     }

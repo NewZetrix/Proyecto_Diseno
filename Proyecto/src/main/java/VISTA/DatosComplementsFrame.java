@@ -14,7 +14,9 @@ import java.awt.*;
 
 public class DatosComplementsFrame extends JFrame {
     private final int usuarioId;
-    private JTextField txtNivel, txtOcupacion, txtEdad, txtInteres;
+    private JTextField txtOcupacion, txtEdad;
+    private JComboBox<String> cbNivelEducativo;
+    private JComboBox<String> cbInteresTaller;
     private JComboBox<String> cbGenero;
     private JButton btnAceptar, btnCancelar;
     private ControladorDatosComplementarios controlador;
@@ -61,10 +63,27 @@ public class DatosComplementsFrame extends JFrame {
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelCampos.add(lblTitulo);
 
-        txtNivel = agregarCampo(panelCampos, "Nivel educativo:");
+        // Nivel educativo
+        JPanel filaNivel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel lblNivel = new JLabel("Nivel educativo:");
+        lblNivel.setPreferredSize(new Dimension(120, 20));
+        String[] niveles = {
+            "Seleccione un nivel",
+            "Primaria",
+            "Secundaria",
+            "Técnico",
+            "Universitario",
+            "Posgrado"
+        };
+        cbNivelEducativo = new JComboBox<>(niveles);
+        cbNivelEducativo.setPreferredSize(new Dimension(200, 25));
+        filaNivel.add(lblNivel);
+        filaNivel.add(cbNivelEducativo);
+        panelCampos.add(filaNivel);
         txtOcupacion = agregarCampo(panelCampos, "Ocupación:");
         txtEdad = agregarCampo(panelCampos, "Edad:");
 
+        //Genero
         JPanel filaGenero = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lblGenero = new JLabel("Género:");
         lblGenero.setPreferredSize(new Dimension(120, 20));
@@ -73,7 +92,22 @@ public class DatosComplementsFrame extends JFrame {
         filaGenero.add(cbGenero);
         panelCampos.add(filaGenero);
 
-        txtInteres = agregarCampo(panelCampos, "Interés en talleres:");
+        // Interés Taller
+        JPanel filaTaller = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel lblTaller = new JLabel("Interés Taller:");
+        lblTaller.setPreferredSize(new Dimension(120, 20));
+        String[] talleres = {
+            "Seleccione un interés",
+            "Empoderamiento",
+            "Autocuidado",
+            "Derechos",
+            "Educación Financiera"
+        };
+        cbInteresTaller = new JComboBox<>(talleres);
+        cbInteresTaller.setPreferredSize(new Dimension(200, 25));
+        filaTaller.add(lblTaller);
+        filaTaller.add(cbInteresTaller);
+        panelCampos.add(filaTaller);
 
         // Botones
         JPanel panelBotones = new JPanel(new FlowLayout());
@@ -106,11 +140,16 @@ public class DatosComplementsFrame extends JFrame {
 
     private void registrarDatos() {
         try {
-            String nivel = txtNivel.getText().trim();
+            String nivel = (String) cbNivelEducativo.getSelectedItem();
             String ocupacion = txtOcupacion.getText().trim();
             int edad = Integer.parseInt(txtEdad.getText().trim());
             String genero = (String) cbGenero.getSelectedItem();
-            String interes = txtInteres.getText().trim();
+            String interes = (String) cbInteresTaller.getSelectedItem();
+            
+            if (nivel.equals("Seleccione un nivel") || interes.equals("Seleccione un interés")) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar nivel educativo e interés válido.");
+                return;
+            }
 
             if (nivel.isEmpty() || ocupacion.isEmpty() || interes.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Complete todos los campos.");
