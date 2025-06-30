@@ -1,4 +1,6 @@
-package MODELO;
+package MODELO.INTERFACES;
+
+import MODELO.Usuario;
 
 public interface IUsuario {
     void registrarUsuario(Usuario usuario);

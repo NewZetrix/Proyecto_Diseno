@@ -1,5 +1,7 @@
-package MODELO;
+package MODELO.OBSERVER;
 
+import MODELO.DatosComplementarios;
+import MODELO.INTERFACES.IDatosObserver;
 import java.util.ArrayList;
 import java.util.List;
 

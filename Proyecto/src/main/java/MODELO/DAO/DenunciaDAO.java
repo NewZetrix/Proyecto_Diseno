@@ -1,6 +1,8 @@
-package MODELO;
+package MODELO.DAO;
 
 import CONEXIONSQL.ConexionBD;
+import MODELO.Denuncia;
+import MODELO.INTERFACES.IDenuncia;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;

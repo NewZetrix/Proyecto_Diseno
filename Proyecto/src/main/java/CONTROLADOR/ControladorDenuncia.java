@@ -1,7 +1,7 @@
 package CONTROLADOR;
 
 import MODELO.Denuncia;
-import MODELO.IDenuncia;
+import MODELO.INTERFACES.IDenuncia;
 
 public class ControladorDenuncia {
     private final IDenuncia servicio;

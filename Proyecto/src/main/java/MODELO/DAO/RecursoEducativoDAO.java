@@ -1,7 +1,9 @@
 
-package MODELO;
+package MODELO.DAO;
 
 import CONEXIONSQL.ConexionBD;
+import MODELO.INTERFACES.IRecursoEducativo;
+import MODELO.RecursoEducativo;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,7 +22,7 @@ public class RecursoEducativoDAO implements IRecursoEducativo{
     @Override
     public List<RecursoEducativo> listarRecursos() {
         List<RecursoEducativo> recursos = new ArrayList<>();
-        String sql = "SELECT Id, Titulo, Descripcion FROM Recursos";
+        String sql = "SELECT Id, Titulo, Descripcion, Categoria FROM Recursos";
 
         try (Connection con = conexion.establecerConexion();
              Statement st = con.createStatement();
@@ -30,8 +32,9 @@ public class RecursoEducativoDAO implements IRecursoEducativo{
                 int id = rs.getInt("Id");
                 String titulo = rs.getString("Titulo");
                 String descripcion = rs.getString("Descripcion");
+                String categoria = rs.getString("Categoria");
 
-                RecursoEducativo recurso = new RecursoEducativo(id, titulo, descripcion);
+                RecursoEducativo recurso = new RecursoEducativo(id, titulo, descripcion,categoria);
                 recursos.add(recurso);
             }
 
@@ -50,9 +53,10 @@ public class RecursoEducativoDAO implements IRecursoEducativo{
 
             cs.setString(1, recurso.getTitulo());
             cs.setString(2, recurso.getContenido());
+            cs.setString(3, recurso.getCategoria());
             cs.execute();
         } catch (SQLException e) {
             throw new RuntimeException("Error al guardar recurso educativo: " + e.getMessage(), e);
         }
-       }
+    }
 }

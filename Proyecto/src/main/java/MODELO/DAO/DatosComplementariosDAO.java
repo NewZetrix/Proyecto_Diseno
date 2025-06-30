@@ -1,6 +1,8 @@
-package MODELO;
+package MODELO.DAO;
 
 import CONEXIONSQL.ConexionBD;
+import MODELO.DatosComplementarios;
+import MODELO.INTERFACES.IDatosComplementarios;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 

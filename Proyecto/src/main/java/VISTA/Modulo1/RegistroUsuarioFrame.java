@@ -1,19 +1,19 @@
-package VISTA;
+package VISTA.Modulo1;
 
 import CONEXIONSQL.ConexionBD;
 import CONTROLADOR.ControladorUsuario;
-import MODELO.IUsuario;
-import MODELO.InvocadorCommand;
-import MODELO.RegistrarUsuarioCommand;
+import CONTROLADOR.SesionUsuario;
+import MODELO.INTERFACES.IUsuario;
+import MODELO.COMMAND.InvocadorCommand;
+import MODELO.COMMAND.RegistrarUsuarioCommand;
 import MODELO.Usuario;
-import MODELO.UsuarioDAO;
+import MODELO.DAO.UsuarioDAO;
 import java.awt.BorderLayout;
 import static java.awt.Color.*;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-//import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -28,13 +28,12 @@ public class RegistroUsuarioFrame extends JFrame {
     
     private JTextField txtNombre, txtTelefono, txtDireccion, txtCorreo;
     private JComboBox<String> cbTipoUsuario;
-    private JButton btnAceptar, btnCancelar, btnRegresar;
+    private JButton btnAceptar, btnCancelar;
     
 
     private ControladorUsuario controladorUsuario;
 
     public RegistroUsuarioFrame() {
-        // Controlador
         IUsuario usuarioDAO = new UsuarioDAO(new ConexionBD());
         controladorUsuario = new ControladorUsuario(usuarioDAO);
 
@@ -56,16 +55,44 @@ public class RegistroUsuarioFrame extends JFrame {
         for (String mod : modulos) {
         JButton btn = new JButton(mod);
         
-            if (mod.equals("M4")) {
-                btn.setEnabled(true); // M4 habilitado, puedes asignar funcionalidad real
-            } else {
-                btn.setEnabled(true); // M1, M2, M3 habilitados pero con aviso
-                btn.addActionListener(e -> JOptionPane.showMessageDialog(
-                    this,
-                    "Este módulo no está activo en estos momentos.",
-                    "Módulo Inactivo",
-                    JOptionPane.INFORMATION_MESSAGE
-                ));
+            switch (mod) {
+                case "M1":
+                    btn.addActionListener(e -> {
+                        if (SesionUsuario.estaRegistroCompleto()) {
+                            JOptionPane.showMessageDialog(
+                                this,
+                                "Ya se encuentra dentro del sistema. Puede acceder a los módulos desde aquí.",
+                                "Módulo activo",
+                                JOptionPane.INFORMATION_MESSAGE
+                            );
+                        } else {
+                            JOptionPane.showMessageDialog(
+                                this,
+                                "Aún no ha completado el registro. Por favor, regístrese primero.",
+                                "Registro incompleto",
+                                JOptionPane.WARNING_MESSAGE
+                            );
+                        }
+                    });
+                    break;
+                case "M2":
+                    btn.addActionListener(e -> {
+                        new VISTA.Modulo2.ModuloRecursosEducativosFrame().setVisible(true);
+                        dispose(); // opcional, para cerrar el menú actual
+                    });
+                    break;
+                case "M3":
+                    btn.addActionListener(e -> {
+                        new VISTA.Modulo3.ModuloDenunciaFrame().setVisible(true);
+                        dispose(); // opcional, si quieres cerrar esta ventana
+                    });
+                    break;
+                case "M4":
+                    btn.addActionListener(e -> {
+                        new VISTA.Modulo4.ModuloTallerFrame().setVisible(true);
+                        dispose(); // opcional: cierra el menú actual
+                    });
+                    break;
             }
 
             panelModulos.add(btn);
@@ -94,8 +121,6 @@ public class RegistroUsuarioFrame extends JFrame {
         panelCampos.add(lblTitulo);
 
         txtNombre = agregarCampo(panelCampos, "Nombre:");
-        //txtTipo = agregarCampo(panelCampos, "Tipo de Usuario:");
-        // Tipo de usuario con JComboBox
         JPanel filaTipo = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lblTipo = new JLabel("Tipo de Usuario:");
         lblTipo.setPreferredSize(new Dimension(120, 20));
@@ -174,13 +199,7 @@ public class RegistroUsuarioFrame extends JFrame {
         panel.add(fila);
         return campo;
     }
-
-    /*private void regresarPaso() {
-        if (pasoActual > 1) {
-            pasoActual--;
-            actualizarPaso();
-        }
-    }*/
+    
     private void limpiarCampos() {
         txtNombre.setText("");
         cbTipoUsuario.setSelectedIndex(0);

@@ -1,6 +1,8 @@
-package MODELO;
+package MODELO.COMMAND;
 
+import MODELO.INTERFACES.ICommand;
 import CONTROLADOR.ControladorUsuario;
+import MODELO.Usuario;
 
 public class RegistrarUsuarioCommand implements ICommand{
     private final ControladorUsuario controlador;

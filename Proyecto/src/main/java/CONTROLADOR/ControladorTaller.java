@@ -1,7 +1,8 @@
 package CONTROLADOR;
 
-import MODELO.ITaller;
+import MODELO.INTERFACES.ITaller;
 import MODELO.Taller;
+import java.util.List;
 
 public class ControladorTaller {
     private final ITaller servicio;
@@ -10,12 +11,11 @@ public class ControladorTaller {
         this.servicio = servicio;
     }
 
-    public void inscribirTaller(String nombre, String participante) {
-        Taller t = new Taller(nombre, participante);
-        servicio.registrarInscripcion(t);
+    public List<Taller> obtenerTalleres(){
+        return this.servicio.obtenerTalleres();
     }
-
-    public int totalInscritos() {
-        return servicio.contarParticipantes();
+    
+    public void inscribirTaller(int idTaller, String nombreTaller) {
+        servicio.inscribirTaller(idTaller,nombreTaller);
     }
 }

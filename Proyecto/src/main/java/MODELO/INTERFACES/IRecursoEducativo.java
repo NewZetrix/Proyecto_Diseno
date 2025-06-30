@@ -1,5 +1,6 @@
-package MODELO;
+package MODELO.INTERFACES;
 
+import MODELO.RecursoEducativo;
 import java.util.List;
 
 public interface IRecursoEducativo {

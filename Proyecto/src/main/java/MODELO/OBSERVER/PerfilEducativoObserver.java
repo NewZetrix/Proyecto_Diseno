@@ -1,5 +1,7 @@
-package MODELO;
+package MODELO.OBSERVER;
 
+import MODELO.DatosComplementarios;
+import MODELO.INTERFACES.IDatosObserver;
 import javax.swing.JOptionPane;
 
 public class PerfilEducativoObserver implements IDatosObserver{

@@ -1,19 +1,21 @@
 package VISTA;
 
+//import VISTA.Modulo1.RegistroUsuarioFrame;
 import CONEXIONSQL.ConexionBD;
 import CONTROLADOR.ControladorDenuncia;
 import CONTROLADOR.ControladorRecursoEducativo;
 import CONTROLADOR.ControladorTaller;
 import CONTROLADOR.ControladorUsuario;
-import MODELO.DenunciaDAO;
-import MODELO.IDenuncia;
-import MODELO.IRecursoEducativo;
-import MODELO.ITaller;
-import MODELO.IUsuario;
-import MODELO.RecursoEducativoDAO;
-import MODELO.TallerDAO;
-import MODELO.UsuarioDAO;
+import MODELO.DAO.DenunciaDAO;
+import MODELO.INTERFACES.IDenuncia;
+import MODELO.INTERFACES.IRecursoEducativo;
+import MODELO.INTERFACES.ITaller;
+import MODELO.INTERFACES.IUsuario;
+import MODELO.DAO.RecursoEducativoDAO;
+import MODELO.DAO.TallerDAO;
+import MODELO.DAO.UsuarioDAO;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class AppPrincipal {
     public static void main(String[] args) {
@@ -36,6 +38,7 @@ public class AppPrincipal {
         ControladorUsuario controladorUsuario = new ControladorUsuario(usuarioDAO);
 
         // Lanzar interfaz gráfica
-        javax.swing.SwingUtilities.invokeLater(() -> {new RegistroUsuarioFrame().setVisible(true);});
+        //javax.swing.SwingUtilities.invokeLater(() -> {new RegistroUsuarioFrame().setVisible(true);});
+        SwingUtilities.invokeLater(() -> new BienvenidaFrame().setVisible(true));
     }
 }

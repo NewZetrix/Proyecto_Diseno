@@ -1,7 +1,7 @@
 package CONTROLADOR;
 
 import MODELO.DatosComplementarios;
-import MODELO.IDatosComplementarios;
+import MODELO.INTERFACES.IDatosComplementarios;
 
 public class ControladorDatosComplementarios {
     private final IDatosComplementarios servicio;

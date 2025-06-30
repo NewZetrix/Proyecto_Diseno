@@ -1,6 +1,8 @@
-package MODELO;
+package MODELO.DAO;
 
 import CONEXIONSQL.ConexionBD;
+import MODELO.INTERFACES.IPreferenciasUsuario;
+import MODELO.PreferenciasUsuario;
 import java.sql.*;
 
 public class PreferenciasUsuarioDAO implements IPreferenciasUsuario{

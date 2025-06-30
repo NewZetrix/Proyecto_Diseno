@@ -1,4 +1,6 @@
-package MODELO;
+package MODELO.PROXY;
+
+import MODELO.INTERFACES.IEnvioMaterialService;
 
 public class EnvioMaterialServiceReal implements IEnvioMaterialService{
     @Override

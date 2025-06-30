@@ -1,18 +1,37 @@
 package MODELO;
 
 public class Taller {
+    private int id;
     private String nombre;
-    private String participante;
+    private String descripcion;
+    private String fecha;
+    private int cupo;
 
-    public Taller(String nombre, String participante) {
+    public Taller(int id, String nombre, String descripcion, String fecha, int cupo) {
+        this.id = id;
         this.nombre = nombre;
-        this.participante = participante;
+        this.descripcion = descripcion;
+        this.fecha = fecha;
+        this.cupo = cupo;
     }
 
-    public String getNombre() { 
-        return nombre; 
+    public int getId() {
+        return id;
     }
-    public String getParticipante() { 
-        return participante; 
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public int getCupo() {
+        return cupo;
     }
 }

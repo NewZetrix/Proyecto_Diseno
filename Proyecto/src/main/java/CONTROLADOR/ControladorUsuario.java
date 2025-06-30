@@ -1,6 +1,6 @@
 package CONTROLADOR;
 
-import MODELO.IUsuario;
+import MODELO.INTERFACES.IUsuario;
 import MODELO.Usuario;
 
 public class ControladorUsuario {

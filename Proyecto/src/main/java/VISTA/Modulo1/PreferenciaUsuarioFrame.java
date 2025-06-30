@@ -1,14 +1,15 @@
-package VISTA;
+package VISTA.Modulo1;
 
 import CONEXIONSQL.ConexionBD;
 import CONTROLADOR.ControladorPreferenciasUsuario;
-import MODELO.EnvioMaterialProxy;
-import MODELO.EnvioMaterialServiceReal;
-import MODELO.IEnvioMaterialService;
-import MODELO.IPreferenciasUsuario;
-import MODELO.IUsuario;
-import MODELO.PreferenciasUsuarioDAO;
-import MODELO.UsuarioDAO;
+import CONTROLADOR.SesionUsuario;
+import MODELO.PROXY.EnvioMaterialProxy;
+import MODELO.PROXY.EnvioMaterialServiceReal;
+import MODELO.INTERFACES.IEnvioMaterialService;
+import MODELO.INTERFACES.IPreferenciasUsuario;
+import MODELO.INTERFACES.IUsuario;
+import MODELO.DAO.PreferenciasUsuarioDAO;
+import MODELO.DAO.UsuarioDAO;
 import java.awt.BorderLayout;
 import static java.awt.Color.*;
 import java.awt.Component;
@@ -137,7 +138,18 @@ public class PreferenciaUsuarioFrame extends JFrame{
         try {
             controlador.registrar(usuarioId, horario, medio, recibe, comentario);
             JOptionPane.showMessageDialog(this, "Registro completado con éxito.\n¡Gracias por participar!");
-            dispose();
+
+            SesionUsuario.marcarRegistroComoCompleto();
+            JOptionPane.showMessageDialog(
+                this,
+                "Registro completado.\nAhora puedes ingresar a los demás módulos .",
+                "Éxito",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+
+            // Cierra esta ventana y abre RegistroUsuarioFrame (donde están los botones M2, M3, M4)
+            this.dispose();
+            new RegistroUsuarioFrame().setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al guardar preferencias: " + e.getMessage());
         }

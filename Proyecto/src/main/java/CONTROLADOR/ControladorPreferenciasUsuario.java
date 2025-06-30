@@ -1,6 +1,6 @@
 package CONTROLADOR;
 
-import MODELO.IPreferenciasUsuario;
+import MODELO.INTERFACES.IPreferenciasUsuario;
 import MODELO.PreferenciasUsuario;
 
 public class ControladorPreferenciasUsuario {

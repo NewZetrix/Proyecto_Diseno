@@ -1,4 +1,6 @@
-package MODELO;
+package MODELO.PROXY;
+
+import MODELO.INTERFACES.IEnvioMaterialService;
 
 public class EnvioMaterialProxy implements IEnvioMaterialService{
     private final EnvioMaterialServiceReal servicioReal;

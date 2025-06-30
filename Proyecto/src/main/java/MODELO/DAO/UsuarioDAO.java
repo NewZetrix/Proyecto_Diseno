@@ -1,6 +1,8 @@
-package MODELO;
+package MODELO.DAO;
 
 import CONEXIONSQL.ConexionBD;
+import MODELO.INTERFACES.IUsuario;
+import MODELO.Usuario;
 import java.sql.*;
 
 public class UsuarioDAO implements IUsuario{

@@ -1,13 +1,14 @@
-package VISTA;
+package VISTA.Modulo1;
 
+//import VISTA.Modulo1.PreferenciaUsuarioFrame;
 import CONEXIONSQL.ConexionBD;
 import CONTROLADOR.ControladorDatosComplementarios;
 import MODELO.DatosComplementarios;
-import MODELO.DatosComplementariosDAO;
-import MODELO.DatosComplementariosPublisher;
-import MODELO.IDatosComplementarios;
-import MODELO.PerfilEducativoObserver;
-import MODELO.SeguimientoObserver;
+import MODELO.DAO.DatosComplementariosDAO;
+import MODELO.OBSERVER.DatosComplementariosPublisher;
+import MODELO.INTERFACES.IDatosComplementarios;
+import MODELO.OBSERVER.PerfilEducativoObserver;
+import MODELO.OBSERVER.SeguimientoObserver;
 
 import javax.swing.*;
 import java.awt.*;
