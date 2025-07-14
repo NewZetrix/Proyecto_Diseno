@@ -15,7 +15,6 @@ import MODELO.DAO.RecursoEducativoDAO;
 import MODELO.DAO.TallerDAO;
 import MODELO.DAO.UsuarioDAO;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 public class AppPrincipal {
     public static void main(String[] args) {
@@ -38,7 +37,10 @@ public class AppPrincipal {
         ControladorUsuario controladorUsuario = new ControladorUsuario(usuarioDAO);
 
         // Lanzar interfaz gráfica
-        //javax.swing.SwingUtilities.invokeLater(() -> {new RegistroUsuarioFrame().setVisible(true);});
-        SwingUtilities.invokeLater(() -> new BienvenidaFrame().setVisible(true));
+        //SwingUtilities.invokeLater(() -> new BienvenidaFrame().setVisible(true));
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            Bienvenida ventana = new Bienvenida();
+            ventana.setVisible(true);
+        });
     }
 }

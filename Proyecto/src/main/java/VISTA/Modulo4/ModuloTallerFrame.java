@@ -37,6 +37,7 @@ public class ModuloTallerFrame extends JFrame{
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 16));
 
         JButton btnInscribirse = new JButton("Inscribirse en taller");
+        btnInscribirse.setBackground(Color.orange);
         btnInscribirse.addActionListener(e -> inscribirseTaller());
 
         JPanel panelBotones = new JPanel(new FlowLayout());
@@ -86,6 +87,6 @@ public class ModuloTallerFrame extends JFrame{
     @Override
     public void dispose() {
         super.dispose();
-        new VISTA.Modulo1.RegistroUsuarioFrame().setVisible(true);
+        new VISTA.Modulo1.RegistroUsuario().setVisible(true);
     }
 }

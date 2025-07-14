@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.*;
@@ -63,9 +62,11 @@ public class ModuloRecursosEducativosFrame extends JFrame{
         JPanel panelBotones = new JPanel(new FlowLayout());
 
         JButton btnVer = new JButton("📖 Ver recurso seleccionado");
+        btnVer.setBackground(Color.decode("#c4f54d"));
         btnVer.addActionListener(e -> mostrarRecursoSeleccionado());
 
         JButton btnRecibir = new JButton("📩 Recibir recurso");
+        btnRecibir.setBackground(Color.green);
         btnRecibir.addActionListener(e -> recibirRecurso());
 
         panelBotones.add(btnVer);
@@ -134,6 +135,6 @@ public class ModuloRecursosEducativosFrame extends JFrame{
     @Override
     public void dispose() {
         super.dispose();
-        new VISTA.Modulo1.RegistroUsuarioFrame().setVisible(true);
+        new VISTA.Modulo1.RegistroUsuario().setVisible(true);
     }
 }

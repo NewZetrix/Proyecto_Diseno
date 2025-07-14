@@ -86,6 +86,6 @@ public class ModuloDenunciaFrame extends JFrame{
     @Override
     public void dispose() {
         super.dispose();
-        new VISTA.Modulo1.RegistroUsuarioFrame().setVisible(true); // volver al menú
+        new VISTA.Modulo1.RegistroUsuario().setVisible(true); // volver al menú
     }
 }
